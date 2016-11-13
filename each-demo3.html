@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>each 嵌套 在子循环中引用父级别的数据</title>
+</head>
+<body>
+    <table id="tableList">
+
+    </table>
+    <!--插件引用-->
+    <script type="text/javascript" src="script/jquery.js"></script>
+    <script type="text/javascript" src="script/handlebars-1.0.0.beta.6.js"></script>
+    <script id="table-template" type="text/x-handlebars-template">
+        {{#each this}}
+            {{name}}<br/>
+            <br/>
+            {{#each info}}
+                {{../name}}的 {{this}}<br/>
+            {{/each}}
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        $(initPage)
+        function initPage() {
+            var data = [
+                {
+                    "name":"jack",
+                    "info":[
+                        "眼睛",
+                        "鼻子",
+                        "耳朵"
+                    ]
+                },
+                {
+                    "name":"rose",
+                    "info":[
+                        "眼睛",
+                        "鼻子",
+                        "耳朵"
+                    ]
+                },
+                {
+                    "name":"lucy",
+                    "info":[
+                        "眼睛",
+                        "鼻子",
+                        "耳朵"
+                    ]
+                }
+            ];
+            var tableTemplate = Handlebars.compile($('#table-template').html());
+            $("#tableList").html(tableTemplate(data));
+        }
+    </script>
+</body>
+</html>
